@@ -33,8 +33,8 @@ class Score():
 
 class SoapBubble():
     def __init__(self):
-        randw = random.randrange(21, w-21)
-        randh = random.randrange(21, h-21)
+        randw = random.randrange(40, w-40)
+        randh = random.randrange(40, h-40)
         self.bubble = mycanvas.create_oval(randw - 20, randh - 20, randw + 20, randh + 20,
                                            fill='blue', activefill='green')
         self.speed = 30
@@ -77,7 +77,7 @@ class SoapBubble():
         root.after(self.speed, self.move_bubble)
 
     def full_of_bubbles(self):
-        if len(mycanvas.find_all()) > 3:
+        if len(mycanvas.find_all()) > 7:
             mycanvas.delete('all')
             mycanvas.destroy()
             Score()
