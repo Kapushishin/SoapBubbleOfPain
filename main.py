@@ -4,8 +4,11 @@ import random
 root=Tk()
 root.geometry('600x400')
 h, w = 400, 600
+score = 0
 mycanvas = Canvas(root, height=h, width=w)
 mycanvas.pack()
+x = random.randrange(-1, 2, 2)
+y = random.randrange(-1, 2, 2)
 
 class App():
     def __init__(self):
@@ -16,11 +19,12 @@ class SoapBubble():
     def __init__(self):
         randw = random.randrange(21, w-21)
         randh = random.randrange(21, h-21)
-        self.t = 0
         self.bubble = mycanvas.create_oval(randw - 20, randh - 20, randw + 20, randh + 20,
                                            fill='blue', activefill='green')
-        self.step = [random.randrange(-1, 2, 2), random.randrange(-1, 2, 2)]
+        #mycanvas.create_text(50, 20, text = 'Score', font = ('Arial', 24, 'bold'))
+        #self.text_score = mycanvas.create_text(50, 60, text = score, font = ('Arial', 24, 'bold'))
         self.speed = 30
+        self.step = [x, y]
         self.move_bubble()
         self.speed_up()
         self.full_of_bubbles()
@@ -31,9 +35,13 @@ class SoapBubble():
         if self.step[0] > 0:
             self.step[0] += 3
         else: self.step[0] -= 3
+        global x
+        x = self.step[0]
         if self.step[1] > 0:
             self.step[1] += 3
         else: self.step[1] -= 3
+        global y
+        y = self.step[1]
         root.after(5000, self.speed_up)
 
     def move_bubble(self):
@@ -57,13 +65,12 @@ class SoapBubble():
         if len(mycanvas.find_all()) > 15:
             mycanvas.destroy()
 
-#        self.t += 1
-#        if self.t >= 300:
-#            mycanvas.delete(mycanvas.find_all()[0])
-
     def on_click(self, event):
         item = mycanvas.find_withtag(tk.CURRENT)
         mycanvas.delete(item)
+
+    def counter_score(self):
+        pass
 
 App()
 root.mainloop()
